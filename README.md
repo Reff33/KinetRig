@@ -36,11 +36,21 @@ cd KinetRig
 
 ## 📦 Curated Starters (`assets/`)
 
-1. **`starter-opener.html`** — High-impact brand opener with continuous 3D camera, macro zoom, and kinetic text.
-2. **`starter-explainer.html`** — Multi-scene explainer with smooth scene wipes and persistent hero elements.
-3. **`starter-data.html`** — Data animation with animated metric counters, dynamic SVG bar/line charts, and KPI pulse cards.
-4. **`starter-ecommerce.html`** — 3D product showcase card with price badge, specs matrix, and CTA glow.
-5. **`starter-chat.html`** — Diegetic text message & conversational chat simulation with realistic typing cadence.
+### Brand Openers & Narrative
+1. **`starter-opener.html`** — High-impact brand opener with continuous 3D camera, macro zoom, Three.js particle space, and kinetic text.
+2. **`starter-explainer.html`** — Continuous action explainer with camera traveling through a unified world.
+
+### Explainer Styles
+3. **`starter-explainer-kartun.html`** — Paper & print cartoon collage explainer with cutout illustrations and drop shadows.
+4. **`starter-explainer-jurnalisme.html`** — Visual journalism explainer with editorial framing and data evidence.
+5. **`starter-explainer-katalog.html`** — Clean white catalog explainer for minimalist product or portfolio showcases.
+6. **`starter-explainer-panggung.html`** — Cartoon stage explainer with proscenium depth, curtains, and spotlight entries.
+7. **`starter-explainer-sketsa.html`** — Vintage sketch explainer with textured blueprints and architectural hatching.
+
+### Interactive & Product Simulation
+8. **`starter-data.html`** — Data animation with animated metric counters, dynamic SVG bar/line charts, and KPI pulse cards.
+9. **`starter-ecommerce.html`** — 3D product showcase card with price badge, specs matrix, and CTA glow.
+10. **`starter-chat.html`** — Diegetic text message & conversational chat simulation with realistic typing cadence.
 
 ---
 

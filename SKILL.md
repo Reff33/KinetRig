@@ -33,18 +33,29 @@ Identify:
 
 ### Phase 2: Style Brief (Three Candidates, One Pick)
 DO NOT write code yet. Inspect project context (README, package.json, tech stack, domain) and propose 3 concept candidates:
-- **Concept:** Pick from 5 categories:
-  1. Opener & Brand Teaser (`starter-opener.html`)
-  2. Explainer & Narrative (`starter-explainer.html`)
-  3. Animated Data & Metrics (`starter-data.html`)
-  4. Product & E-Commerce Showcase (`starter-ecommerce.html`)
-  5. Diegetic Chat & Text Message (`starter-chat.html`)
-- **Style Direction:**
-  1. *Cinematic Dark* (near-black, neon bloom, bold grotesk)
-  2. *Poster Color-Block* (solid color fields, giant cropped letters)
-  3. *Editorial Light* (cream/white, luxury display serif, hairlines)
-  4. *Brutalist Mono* (B&W hard grid, monospace, high contrast)
-  5. *Grainy Gradient* (saturated glowing shapes, fine grain, camera depth)
+- **Concept:** Pick from:
+  1. **Opener Concepts (19 Variants in `references/opener-konsep.md`):** One continuous shot, pure typography, problem -> gone, before/after, journey inside UI, product macro, object metaphor, living number, one feature demo, diegetic Q&A, rhythmic collage, logo as stage, object relay, brand showcase, claim -> how -> result, living UI ecosystem, flat pop, through gradient shapes, product tour. Starter: `starter-opener.html`.
+  2. **Explainer Styles (6 Starters in `references/explainer.md`):**
+     - Continuous Action: `starter-explainer.html`
+     - Cartoon Collage: `starter-explainer-kartun.html`
+     - Visual Journalism: `starter-explainer-jurnalisme.html`
+     - White Catalog: `starter-explainer-katalog.html`
+     - Cartoon Stage: `starter-explainer-panggung.html`
+     - Vintage Sketch: `starter-explainer-sketsa.html`
+  3. **Data & Animated Charts:** `starter-data.html`
+  4. **Product & E-Commerce Showcase:** `starter-ecommerce.html`
+  5. **Diegetic Chat Simulation:** `starter-chat.html`
+- **Style Direction (10 Directions):**
+  1. *Cinematic Dark* (near-black, neon bloom, bold grotesk | gaming, creative tools, dev)
+  2. *Poster Color-Block* (solid color fields, giant cropped letters | consumer apps, events)
+  3. *Editorial Light* (cream/white, luxury display serif, hairlines | SaaS, finance)
+  4. *Paper & Print* (paper texture, collage, stamps, handwriting | education, food)
+  5. *Retro / Analog* (faded color, grain, scanlines, geometric | nostalgia, media)
+  6. *Brutalist Mono* (B&W hard grid, monospace, hard cuts | CLI, dev tools)
+  7. *Pastel Playful* (stacked pastels, rounded shapes, elastic bounce | health, lifestyle)
+  8. *Luxury Dark* (black + gold/bronze, tall wide-tracked serif | luxury, auto)
+  9. *Flat Pop with Photos* (stickers, photo cutouts, snapping on beat | fintech, consumer)
+  10. *Grainy Gradient* (deep base, glowing shapes, fine grain, camera depth | AI, tech)
 - **Palette with Source:** 1 Primary Brand HEX, 1 Background HEX, 1 Accent HEX.
 - **Rationale:** Why each candidate fits the product.
 
