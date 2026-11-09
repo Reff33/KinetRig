@@ -1,6 +1,8 @@
 <div align="center">
 
-# KinetRig 🎬
+<img src="assets/image/KinetRig%20Icon.png" alt="KinetRig Icon" width="128" />
+
+# KinetRig
 
 **Zero-dependency 144 FPS kinetic motion graphics & video engine built for AI coding agents.**<br>
 Openers, promos, product demos, kinetic typography, and explainers — built as a single `index.html` with deterministic 144 FPS rendering and zero dropped frames.
