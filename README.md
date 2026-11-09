@@ -120,6 +120,12 @@ node scripts/export-frames.mjs
 ffmpeg -framerate 144 -i frames/f%05d.png -c:v libx264 -pix_fmt yuv420p -crf 14 output_144fps.mp4
 ```
 
+### Option C: Visual Keyframe Snapshot (Quick Inspection)
+```bash
+# Snapshot critical seconds without full render
+node scripts/snap.mjs shots 1 3.5 8 12 18
+```
+
 ---
 
 ## 📜 Core Motion Laws (Anti-PowerPoint)
