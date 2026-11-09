@@ -54,6 +54,52 @@ cd KinetRig
 
 ---
 
+## 📚 Deep Motion References (`references/`)
+
+Comprehensive motion design manuals and formulas:
+
+| Reference | Topic & Application |
+|---|---|
+| [`anti-ppt.md`](references/anti-ppt.md) | **Anti-PowerPoint Laws** — 30+ violation-to-fix tables, visual hierarchy, camera breathing, and scene choreography. |
+| [`144fps-guide.md`](references/144fps-guide.md) | **144 FPS Offline Stepping** — Mathematical timeline stepping (`tl.time`), zero dropped frames, and lossless ffmpeg encoding. |
+| [`svg-icons.md`](references/svg-icons.md) | **Zero-Emoji Vector Policy** — Crisp inline SVGs with neon glow (`currentColor`), resolution independence, and free asset sources. |
+| [`opener-konsep.md`](references/opener-konsep.md) | **19 Opener Concepts** — One continuous shot, pure typography, UI journey, object macro, diegetic Q&A, and brand system. |
+| [`explainer.md`](references/explainer.md) | **6 Explainer Styles** — Narrative camera choreography (into → settle → look → home), video footage layers (`clip()`), and audio sync. |
+| [`techniques.md`](references/techniques.md) | **Motion Techniques** — Push-through 3D, whip pan, yaw/roll, word-by-word typography (`say/unsay`), and living layered backgrounds. |
+| [`kartun-panggung.md`](references/kartun-panggung.md) | **Cartoon Stage Mechanics** — Proscenium arch depth, curtain drops, multi-layered cutouts, and theatrical spotlight entries. |
+
+---
+
+## 🎨 10 Style Directions
+
+KinetRig enforces distinctive aesthetic directions tailored to project domains:
+
+1. **Cinematic Dark** — Near-black base, neon bloom on objects, bold grotesk (Developer tools, gaming, AI).
+2. **Poster Color-Block** — High-saturation solid color fields, giant cropped letters (Consumer apps, events, music).
+3. **Editorial Light** — Warm cream/white, luxury display serif, delicate hairlines (SaaS, productivity, fintech).
+4. **Paper & Print** — Textured paper, collage cutouts, stamps, handwritten annotations (Education, lifestyle, food).
+5. **Retro / Analog** — Faded color palettes, CRT grain, geometric scanlines (Entertainment, media, nostalgia).
+6. **Brutalist Mono** — Monospace typography, stark B&W grid lines, hard architectural cuts (CLI, system infra).
+7. **Pastel Playful** — Soft stacked pastels, rounded pill geometry, elastic spring easing (Health, wellness, apps).
+8. **Luxury Dark** — Pitch black, warm bronze/champagne gold, tall wide-tracked serif (Automotive, luxury goods).
+9. **Flat Pop with Photos** — Bold stickers, crisp photo cutouts, rhythmic snap cuts (Fintech, consumer e-commerce).
+10. **Grainy Gradient** — Deep luminous base, glowing organic shapes, floating 3D camera (AI platforms, product launches).
+
+---
+
+## 🤖 6-Phase Agent Workflow
+
+Built natively for AI coding agents (Claude Code, Cursor, Codex, ChatGPT):
+
+1. **Phase 1 (Brief):** Determine topic, duration, aspect ratio (`16:9` vs `9:16`), and audio.
+2. **Phase 2 (Style Brief):** Inspect project domain and propose **3 Concept Candidates** with palette and rationale before generating code.
+3. **Phase 3 (User Approval):** User selects 1 candidate or refines parameters.
+4. **Phase 4 (Starter Build):** Adapt chosen starter from `assets/` into a single, zero-dependency `index.html`.
+5. **Phase 5 (Anti-PowerPoint Check):** Continuous camera travels, max 2 text levels per scene, ≤ 5 words per beat, zero emojis.
+6. **Phase 6 (Export):** Floating clean capture button (144 FPS, 40 Mbps) + headless studio render.
+
+---
+
 ## 🎥 144 FPS Lossless Video Export
 
 ### Option A: In-Browser One-Click Download (144 FPS)
@@ -82,6 +128,13 @@ ffmpeg -framerate 144 -i frames/f%05d.png -c:v libx264 -pix_fmt yuv420p -crf 14 
 2. **Zero Emojis:** Never use OS emojis. Always use resolution-independent inline SVG vectors (`<svg viewBox="0 0 24 24">`).
 3. **Deterministic Timelines:** All animations are driven strictly by `tl.time()`. Never use `Date.now()` or `Math.random()`.
 4. **One Statement Per Shot:** Keep text under 5 words per beat. Let motion and depth convey emotion.
+
+---
+
+## 💡 Acknowledgements & Origins
+
+- Explainer scene mechanics, camera choreography, and narrative concepts adapted from the [Bang Motion](https://github.com/bangtutorial/bang-motion) methodology by [Bang Tutorial](https://youtube.com/bangtutorial).
+- Elevated into **KinetRig** with native 144 FPS offline rendering pipelines, 40 Mbps clean browser streams, and strict zero-emoji inline SVG standards by [Reff33](https://github.com/Reff33).
 
 ---
 
