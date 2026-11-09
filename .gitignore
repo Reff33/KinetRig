@@ -1,5 +1,7 @@
 node_modules/
 frames/
+sfx/
+*.wav
 *.mp4
 *.webm
 .DS_Store
