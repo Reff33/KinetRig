@@ -16,7 +16,7 @@ Motion graphics that move like real studio cinema, not PowerPoint slides. Built 
 
 1. **Zero Runtime Dependencies:** Deliverable (`index.html`) requires ONLY a modern browser. No Node build step, no React/Remotion bloat, no Python Manim setup.
 2. **Deterministic 144 FPS Timeline:** All animations driven strictly by `tl.time()`. No `Date.now()`, no `Math.random()`. Allows frame-accurate offline rendering with 0 dropped frames.
-3. **Zero OS Emojis (Strict Vector Quality):** NEVER use system emojis (🤖, ⚡, 🐙, 🧠, 🕷). ALWAYS use resolution-independent Inline SVG vectors (`<svg viewBox="0 0 24 24">`) with `currentColor` or brand colors with neon glow. Emojis look amateurish and pixelate on 1080p/4K; inline SVGs guarantee crisp studio finish with zero external dependencies.
+3. **Zero OS Emojis Everywhere (Strict Vector Quality):** NEVER use system/OS copy-paste emojis (🤖, ⚡, 🐙, 🧠, 🕷, 🎥, ⚙, 🔴) anywhere — neither in scene cards, titles, body text, nor in UI buttons (Download Video, HUD, scrubbers, controls). ALWAYS use resolution-independent Inline SVG vectors (`<svg viewBox="0 0 24 24">`) with `currentColor` or brand colors with neon glow. Emojis look amateurish and pixelate on 1080p/4K; inline SVGs guarantee crisp studio finish with zero external dependencies.
 4. **Anti-PowerPoint Motion:** No static slide deck fades. Scenes transition through continuous camera traveling (push-through, whip pan, yaw 3D) or motivated object wipes.
 5. **Clean Video Export:** `body.clean-capture` auto-hides all UI, scrubber, and HUD buttons during recording. Passes `cursor: 'never'` to stream capture.
 
@@ -64,7 +64,7 @@ Adapt the chosen starter template from `assets/` into a single self-contained `i
 
 ### Phase 6: Clean 144 FPS Export
 - Autoplay, loop, and `?debug=1` timeline scrubber.
-- One-Click In-Browser Capture: floating '🎥 Download Video' button recording at 144 FPS, 40 Mbps bitrate with `body.clean-capture`.
+- One-Click In-Browser Capture: floating 'Download Video' button with inline camera SVG vector (`<svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>`) recording at 144 FPS, 40 Mbps bitrate with `body.clean-capture`. Zero OS emojis in HUD or buttons.
 - Headless Studio Render:
   ```bash
   node scripts/export-frames.mjs

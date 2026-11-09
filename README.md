@@ -47,7 +47,7 @@ cd KinetRig
 ## 🎥 144 FPS Lossless Video Export
 
 ### Option A: In-Browser One-Click Download (144 FPS)
-Every starter includes a floating **🎥 Download Video** button. When clicked:
+Every starter includes a floating **Download Video** button (styled with inline camera SVG). When clicked:
 - Automatically hides all UI controls, timeline scrubbers, and HUD (`body.clean-capture`).
 - Passes `cursor: 'never'` to getDisplayMedia so the mouse pointer never appears in the output.
 - Records directly at **144 FPS** and **40 Mbps** bitrate.
