@@ -1,4 +1,12 @@
 {
+  "name": "kinetrig",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "studio": "node scripts/server.mjs",
+    "test": "node scripts/test-runtime.mjs"
+  },
   "devDependencies": {
     "puppeteer-core": "^25.16.0"
   }
