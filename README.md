@@ -41,15 +41,14 @@ cd KinetRig
 npm install
 ```
 
-### 2. Render & Auto-Launch
+### 2. Live Preview in Remotion Studio
 
-Render the default Cinematic Title template and automatically pop open the result:
+Launch the interactive Remotion Studio in your browser:
 
 ```bash
-node scripts/render-remotion.mjs CinematicTitle '{"title":"KINETRIG 2.0","subtitle":"AI REMOTION PRODUCTION ENGINE"}'
+npm run preview
+# or: node scripts/preview-remotion.mjs
 ```
-
-The output file is saved to `renders/CinematicTitle.mp4` and instantly launched in your system player (Movies & TV, VLC, QuickTime).
 
 ---
 
@@ -60,6 +59,8 @@ Templates live inside `templates/remotion/`:
 | Template | File | Description |
 | :--- | :--- | :--- |
 | 🎬 **Cinematic Title** | `templates/remotion/CinematicTitle.tsx` | Full-bleed kinetic headline with character-by-character reveal, slow cinematic push-in, glowing accent beam, and vignette. |
+| ⚡ **Glitch Terminal** | `templates/remotion/GlitchTerminal.tsx` | Cybernetic terminal with memory hex stream, decrypting text scramble with RGB split glitch chromatic aberration. |
+| 📊 **SaaS Macro** | `templates/remotion/SaasMacro.tsx` | 3D browser mockup perspective with dynamic SVG metric chart, animated drawing line, and telemetry ribbon. |
 
 To add or register custom compositions, add entries to `remotion/Root.tsx`.
 
@@ -84,8 +85,11 @@ KinetRig/
 │   ├── index.ts                     Root register
 │   └── Root.tsx                     Composition definitions
 ├── templates/remotion/              Reusable React motion templates
-│   └── CinematicTitle.tsx           Cinematic Title opener
+│   ├── CinematicTitle.tsx           Cinematic Title opener
+│   ├── GlitchTerminal.tsx           Decrypt Glitch Terminal
+│   └── SaasMacro.tsx                SaaS Macro UI tour
 ├── scripts/
+│   ├── preview-remotion.mjs         CLI to launch Remotion Studio in browser
 │   └── render-remotion.mjs          CLI renderer with automatic player launch
 ├── references/                      Motion design laws & cinematography guides
 └── tsconfig.json                    TypeScript bundler configuration
@@ -98,7 +102,7 @@ KinetRig/
 <details>
 <summary><b>Does it render a real video file?</b></summary>
 
-Yes. It uses Remotion CLI to render actual H.264 MP4 videos frame-by-frame and immediately launches the video in your OS media player for instant review.
+Yes. You can preview in browser or use Remotion CLI to render actual H.264 MP4 videos frame-by-frame.
 </details>
 
 <details>
