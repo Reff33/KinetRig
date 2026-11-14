@@ -64,6 +64,8 @@ Templates live inside `templates/remotion/`:
 | 🔲 **Bento Grid** | `templates/remotion/BentoGrid.tsx` | Exact 6.5s 3x2 glassmorphic modular bento card layout with staggered spring pop entries and animated progress telemetry. |
 | 💬 **Chat Dialogue** | `templates/remotion/ChatDialogue.tsx` | Diegetic AI chat device with 3D perspective tilt, human keystroke typing cadence, pulsing typing dots, and reaction badges. |
 | 📈 **Data Metrics** | `templates/remotion/DataMetrics.tsx` | Exact 8.0s KPI dashboard with 3 popup metric cards, animated number counter, and 6 elastic animated SVG bar charts. |
+| 🔥 **Reel Hook** | `templates/remotion/ReelHook.tsx` | Exact 6.0s viral short-form hook with chromatic mood shift (Red -> Violet), radial bloom wave, and floating sticker tags. |
+| 🛍️ **Product Showcase** | `templates/remotion/ProductShowcase.tsx` | Exact 7.0s 3D e-commerce card with specular shimmer sweep, animated spec grid, and bouncing CTA button. |
 
 To add or register custom compositions, add entries to `remotion/Root.tsx`.
 
@@ -93,7 +95,9 @@ KinetRig/
 │   ├── SaasMacro.tsx                SaaS Macro UI tour
 │   ├── BentoGrid.tsx                Modular Bento Grid architecture
 │   ├── ChatDialogue.tsx             Diegetic AI chat simulation
-│   └── DataMetrics.tsx              KPI & Data Metrics visualizer
+│   ├── DataMetrics.tsx              KPI & Data Metrics visualizer
+│   ├── ReelHook.tsx                 High-Retention Reel Hook
+│   └── ProductShowcase.tsx          3D E-Commerce Showcase
 ├── scripts/
 │   ├── preview-remotion.mjs         CLI to launch Remotion Studio in browser
 │   └── render-remotion.mjs          CLI renderer with automatic player launch
