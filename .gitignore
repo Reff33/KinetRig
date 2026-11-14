@@ -6,3 +6,10 @@ sfx/
 *.webm
 .DS_Store
 Thumbs.db
+renders/
+.remotion/
+
+# Added by ContextRig
+.contextrig_cache.json
+rigtools/
+graphify-out/
