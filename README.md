@@ -69,6 +69,9 @@ Templates live inside `templates/remotion/`:
 | 🌊 **Action Flow** | `templates/remotion/ActionFlow.tsx` | Exact 8.0s continuous 3840px world with persistent hero orb, squash & stretch, 3D horizon flight banking, and shockwaves. |
 | 📑 **Editorial Dossier** | `templates/remotion/EditorialDossier.tsx` | Exact 9.0s forensic investigative desk with satellite recon, cyan laser sweep, red stamp slam, and black redaction marker wipe. |
 | 📐 **Studio Catalog** | `templates/remotion/StudioCatalog.tsx` | Exact 11.0s Swiss architectural white paper catalog, camera gliding rig between exhibits, specimen fan-out stack, and rubber stamp slam. |
+| 📰 **Paper Collage** | `templates/remotion/PaperCollage.tsx` | Exact 7.5s stop-motion tactile paper scrapbook, Polaroid drop, Scotch tape snaps, torn newspaper scrap, and physical paper rip tear wipe. |
+| 🎭 **Proscenium Stage** | `templates/remotion/ProsceniumStage.tsx` | Exact 8.0s velvet proscenium curtains parting open, theatrical depth planes, and animated vector character puppet with organic walk cycle. |
+| 🔮 **Liquid Glass** | `templates/remotion/LiquidGlass.tsx` | Exact 6.0s Apple iOS spatial design, Dynamic Island pill expansion, rotating multi-color Siri fluid glow aura, and VisionOS glass orb. |
 
 To add or register custom compositions, add entries to `remotion/Root.tsx`.
 
@@ -103,7 +106,10 @@ KinetRig/
 │   ├── ProductShowcase.tsx          3D E-Commerce Showcase
 │   ├── ActionFlow.tsx               Continuous Action Vector Flow
 │   ├── EditorialDossier.tsx         Forensic Classified Dossier
-│   └── StudioCatalog.tsx            Swiss Minimalist Architectural Catalog
+│   ├── StudioCatalog.tsx            Swiss Minimalist Architectural Catalog
+│   ├── PaperCollage.tsx             Tactile Stop-Motion Paper Scrapbook
+│   ├── ProsceniumStage.tsx          Theatrical Velvet Curtain Puppet Stage
+│   └── LiquidGlass.tsx              iOS VisionOS Liquid Glass & Dynamic Island
 ├── scripts/
 │   ├── preview-remotion.mjs         CLI to launch Remotion Studio in browser
 │   └── render-remotion.mjs          CLI renderer with automatic player launch
