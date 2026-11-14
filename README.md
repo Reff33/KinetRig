@@ -58,7 +58,7 @@ Templates live inside `templates/remotion/`:
 
 | Template | File | Description |
 | :--- | :--- | :--- |
-| 🎬 **Cinematic Title** | `templates/remotion/CinematicTitle.tsx` | Full-bleed kinetic headline with character-by-character reveal, slow cinematic push-in, glowing accent beam, and vignette. |
+| 🎬 **Kinet Opener** | `templates/remotion/KinetOpener.tsx` | Exact 10.0s 3D particle space brand opener, headline slam, 3 vector cards, and camera push-through into Scene 2. |
 | ⚡ **Glitch Terminal** | `templates/remotion/GlitchTerminal.tsx` | Exact 6.0s cybernetic terminal with memory hex stream, live memory bar, decrypting text scramble with RGB split glitch chromatic aberration. |
 | 📊 **SaaS Macro** | `templates/remotion/SaasMacro.tsx` | Exact 7.0s 3D browser mockup perspective with dynamic SVG metric chart, animated drawing line, and sidebar rack focus blur swap. |
 | 🔲 **Bento Grid** | `templates/remotion/BentoGrid.tsx` | Exact 6.5s 3x2 glassmorphic modular bento card layout with staggered spring pop entries and animated progress telemetry. |
@@ -66,8 +66,8 @@ Templates live inside `templates/remotion/`:
 | 📈 **Data Metrics** | `templates/remotion/DataMetrics.tsx` | Exact 8.0s KPI dashboard with 3 popup metric cards, animated number counter, and 6 elastic animated SVG bar charts. |
 | 🔥 **Reel Hook** | `templates/remotion/ReelHook.tsx` | Exact 6.0s viral short-form hook with chromatic mood shift (Red -> Violet), radial bloom wave, and floating sticker tags. |
 | 🛍️ **Product Showcase** | `templates/remotion/ProductShowcase.tsx` | Exact 7.0s 3D e-commerce card with specular shimmer sweep, animated spec grid, and bouncing CTA button. |
-| 🌊 **Action Flow** | `templates/remotion/ActionFlow.tsx` | Exact 6.0s continuous 3840px world with persistent hero orb, squash & stretch, 3D horizon flight banking, and shockwaves. |
-| 📑 **Editorial Dossier** | `templates/remotion/EditorialDossier.tsx` | Exact 6.5s forensic investigative desk with satellite recon, cyan laser sweep, red stamp slam, and black redaction marker wipe. |
+| 🌊 **Action Flow** | `templates/remotion/ActionFlow.tsx` | Exact 8.0s continuous 3840px world with persistent hero orb, squash & stretch, 3D horizon flight banking, and shockwaves. |
+| 📑 **Editorial Dossier** | `templates/remotion/EditorialDossier.tsx` | Exact 9.0s forensic investigative desk with satellite recon, cyan laser sweep, red stamp slam, and black redaction marker wipe. |
 
 To add or register custom compositions, add entries to `remotion/Root.tsx`.
 
@@ -92,7 +92,7 @@ KinetRig/
 │   ├── index.ts                     Root register
 │   └── Root.tsx                     Composition definitions
 ├── templates/remotion/              Reusable React motion templates
-│   ├── CinematicTitle.tsx           Cinematic Title opener
+│   ├── KinetOpener.tsx              3D Particle Space Brand Opener
 │   ├── GlitchTerminal.tsx           Decrypt Glitch Terminal
 │   ├── SaasMacro.tsx                SaaS Macro UI tour
 │   ├── BentoGrid.tsx                Modular Bento Grid architecture
