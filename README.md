@@ -68,6 +68,7 @@ Templates live inside `templates/remotion/`:
 | 🛍️ **Product Showcase** | `templates/remotion/ProductShowcase.tsx` | Exact 7.0s 3D e-commerce card with specular shimmer sweep, animated spec grid, and bouncing CTA button. |
 | 🌊 **Action Flow** | `templates/remotion/ActionFlow.tsx` | Exact 8.0s continuous 3840px world with persistent hero orb, squash & stretch, 3D horizon flight banking, and shockwaves. |
 | 📑 **Editorial Dossier** | `templates/remotion/EditorialDossier.tsx` | Exact 9.0s forensic investigative desk with satellite recon, cyan laser sweep, red stamp slam, and black redaction marker wipe. |
+| 📐 **Studio Catalog** | `templates/remotion/StudioCatalog.tsx` | Exact 11.0s Swiss architectural white paper catalog, camera gliding rig between exhibits, specimen fan-out stack, and rubber stamp slam. |
 
 To add or register custom compositions, add entries to `remotion/Root.tsx`.
 
@@ -101,7 +102,8 @@ KinetRig/
 │   ├── ReelHook.tsx                 High-Retention Reel Hook
 │   ├── ProductShowcase.tsx          3D E-Commerce Showcase
 │   ├── ActionFlow.tsx               Continuous Action Vector Flow
-│   └── EditorialDossier.tsx         Forensic Classified Dossier
+│   ├── EditorialDossier.tsx         Forensic Classified Dossier
+│   └── StudioCatalog.tsx            Swiss Minimalist Architectural Catalog
 ├── scripts/
 │   ├── preview-remotion.mjs         CLI to launch Remotion Studio in browser
 │   └── render-remotion.mjs          CLI renderer with automatic player launch
