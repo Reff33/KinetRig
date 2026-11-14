@@ -59,10 +59,11 @@ Templates live inside `templates/remotion/`:
 | Template | File | Description |
 | :--- | :--- | :--- |
 | 🎬 **Cinematic Title** | `templates/remotion/CinematicTitle.tsx` | Full-bleed kinetic headline with character-by-character reveal, slow cinematic push-in, glowing accent beam, and vignette. |
-| ⚡ **Glitch Terminal** | `templates/remotion/GlitchTerminal.tsx` | Cybernetic terminal with memory hex stream, live memory bar, decrypting text scramble with RGB split glitch chromatic aberration. |
-| 📊 **SaaS Macro** | `templates/remotion/SaasMacro.tsx` | 3D browser mockup perspective with dynamic SVG metric chart, animated drawing line, and sidebar rack focus blur swap. |
+| ⚡ **Glitch Terminal** | `templates/remotion/GlitchTerminal.tsx` | Exact 6.0s cybernetic terminal with memory hex stream, live memory bar, decrypting text scramble with RGB split glitch chromatic aberration. |
+| 📊 **SaaS Macro** | `templates/remotion/SaasMacro.tsx` | Exact 7.0s 3D browser mockup perspective with dynamic SVG metric chart, animated drawing line, and sidebar rack focus blur swap. |
 | 🔲 **Bento Grid** | `templates/remotion/BentoGrid.tsx` | 3x2 glassmorphic modular bento card layout with staggered spring pop entries and animated progress telemetry. |
 | 💬 **Chat Dialogue** | `templates/remotion/ChatDialogue.tsx` | Diegetic AI chat device with 3D perspective tilt, human keystroke typing cadence, pulsing typing dots, and reaction badges. |
+| 📈 **Data Metrics** | `templates/remotion/DataMetrics.tsx` | Exact 8.0s KPI dashboard with 3 popup metric cards, animated number counter, and 6 elastic animated SVG bar charts. |
 
 To add or register custom compositions, add entries to `remotion/Root.tsx`.
 
@@ -91,7 +92,8 @@ KinetRig/
 │   ├── GlitchTerminal.tsx           Decrypt Glitch Terminal
 │   ├── SaasMacro.tsx                SaaS Macro UI tour
 │   ├── BentoGrid.tsx                Modular Bento Grid architecture
-│   └── ChatDialogue.tsx             Diegetic AI chat simulation
+│   ├── ChatDialogue.tsx             Diegetic AI chat simulation
+│   └── DataMetrics.tsx              KPI & Data Metrics visualizer
 ├── scripts/
 │   ├── preview-remotion.mjs         CLI to launch Remotion Studio in browser
 │   └── render-remotion.mjs          CLI renderer with automatic player launch
