@@ -66,6 +66,8 @@ Templates live inside `templates/remotion/`:
 | 📈 **Data Metrics** | `templates/remotion/DataMetrics.tsx` | Exact 8.0s KPI dashboard with 3 popup metric cards, animated number counter, and 6 elastic animated SVG bar charts. |
 | 🔥 **Reel Hook** | `templates/remotion/ReelHook.tsx` | Exact 6.0s viral short-form hook with chromatic mood shift (Red -> Violet), radial bloom wave, and floating sticker tags. |
 | 🛍️ **Product Showcase** | `templates/remotion/ProductShowcase.tsx` | Exact 7.0s 3D e-commerce card with specular shimmer sweep, animated spec grid, and bouncing CTA button. |
+| 🌊 **Action Flow** | `templates/remotion/ActionFlow.tsx` | Exact 6.0s continuous 3840px world with persistent hero orb, squash & stretch, 3D horizon flight banking, and shockwaves. |
+| 📑 **Editorial Dossier** | `templates/remotion/EditorialDossier.tsx` | Exact 6.5s forensic investigative desk with satellite recon, cyan laser sweep, red stamp slam, and black redaction marker wipe. |
 
 To add or register custom compositions, add entries to `remotion/Root.tsx`.
 
@@ -97,7 +99,9 @@ KinetRig/
 │   ├── ChatDialogue.tsx             Diegetic AI chat simulation
 │   ├── DataMetrics.tsx              KPI & Data Metrics visualizer
 │   ├── ReelHook.tsx                 High-Retention Reel Hook
-│   └── ProductShowcase.tsx          3D E-Commerce Showcase
+│   ├── ProductShowcase.tsx          3D E-Commerce Showcase
+│   ├── ActionFlow.tsx               Continuous Action Vector Flow
+│   └── EditorialDossier.tsx         Forensic Classified Dossier
 ├── scripts/
 │   ├── preview-remotion.mjs         CLI to launch Remotion Studio in browser
 │   └── render-remotion.mjs          CLI renderer with automatic player launch
