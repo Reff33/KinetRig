@@ -9,6 +9,13 @@ Thumbs.db
 renders/
 .remotion/
 
+package-lock.json
+kinet.config.json
+preview.html
+start-studio.bat
+api/
+.claude/
+
 # Added by ContextRig
 .contextrig_cache.json
 rigtools/

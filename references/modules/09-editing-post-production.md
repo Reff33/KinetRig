@@ -1,20 +1,21 @@
-# 09 — Editing & Post-Production (KinetRig Engine)
+# 09 — Editing & Post-Production (Remotion Production Engine)
 
-Code-driven Non-Linear Editing (Code-Driven NLE). Rhythm structures, cinematic speed ramping, and 144 FPS lossless export optimization.
+Code-driven Non-Linear Editing (Code-Driven NLE) using Remotion (React). Rhythm structures, kinetic subtitles, frame-accurate pacing, and broadcast MP4 export optimization.
 
 ---
 
 ## 1. Speed Ramping (Temporal Velocity Manipulation)
 
-Speed ramping accelerates through transitional movements and brakes precisely on climax frames:
+Speed ramping accelerates through transitional movements and brakes precisely on climax frames using cubic Bezier curves in Remotion:
 
-```javascript
-// Using custom bezier easing in GSAP
-// Fast during camera shift (0.2s), slow and deliberate during copy reading (1.5s)
-tl.to('#metric-reveal', {
-  scale: 1,
-  duration: 1.8,
-  ease: 'expo.out' // Immediate velocity snap followed by sustained glide
+```tsx
+import { interpolate, Easing } from 'remotion';
+
+// Smooth velocity snap followed by sustained glide
+const scale = interpolate(frame, [0, 45], [0.8, 1.0], {
+  extrapolateLeft: 'clamp',
+  extrapolateRight: 'clamp',
+  easing: Easing.bezier(0.16, 1, 0.3, 1),
 });
 ```
 
@@ -24,41 +25,48 @@ tl.to('#metric-reveal', {
 
 Modern dynamic subtitles with real-time word highlighting (Karaoke Glow / Kinetic Word Stacker):
 
-```html
-<div class="caption-container" style="display: flex; gap: 8px; justify-content: center; font-size: 36px; font-weight: 700;">
-  <span class="cap-word" id="w1">Build</span>
-  <span class="cap-word" id="w2">Faster</span>
-  <span class="cap-word" id="w3">Than</span>
-  <span class="cap-word" id="w4">Ever.</span>
-</div>
-```
+```tsx
+import React from 'react';
+import { useCurrentFrame, interpolate } from 'remotion';
 
-```javascript
-// Synchronize highlight state with narration timestamps
-function highlightWords(tl, wordTimings) {
-  wordTimings.forEach(({ id, start, dur }) => {
-    tl.to(id, { color: '#00f0ff', scale: 1.15, textShadow: '0 0 20px #00f0ff', duration: 0.15 }, start)
-      .to(id, { color: '#ffffff', scale: 1.0, textShadow: 'none', duration: 0.2 }, start + dur);
-  });
-}
+export const KineticCaption: React.FC<{ words: { text: string; startFrame: number; endFrame: number }[] }> = ({ words }) => {
+  const frame = useCurrentFrame();
+
+  return (
+    <div style={{ display: 'flex', gap: 12, justifyContent: 'center', fontSize: 44, fontWeight: 800 }}>
+      {words.map((w, i) => {
+        const isActive = frame >= w.startFrame && frame <= w.endFrame;
+        const scale = isActive ? interpolate(frame, [w.startFrame, w.startFrame + 5], [1, 1.15], { extrapolateRight: 'clamp' }) : 1;
+        const color = isActive ? '#00F0FF' : 'rgba(255, 255, 255, 0.6)';
+        const textShadow = isActive ? '0 0 24px rgba(0, 240, 255, 0.6)' : 'none';
+
+        return (
+          <span key={i} style={{ color, transform: `scale(${scale})`, textShadow, transition: 'color 0.1s' }}>
+            {w.text}
+          </span>
+        );
+      })}
+    </div>
+  );
+};
 ```
 
 ---
 
-## 3. 144 FPS Export Pipeline & FFmpeg Optimization
+## 3. Remotion CLI Production Rendering & Export Pipeline
 
 ### Studio Master MP4 Render Pipeline
 
 ```bash
-# Step 1: Headless extraction of every 144 FPS frame with zero frame loss
-node rigtools/kinet_rig/scripts/export-frames.mjs
+# Render directly to H.264 broadcast MP4 using the automated pipeline:
+node scripts/render-remotion.mjs <CompositionId> '[props]'
 
-# Step 2: Assemble PNG frames into high-profile H.264 MP4 (CRF 14)
-ffmpeg -framerate 144 -i frames/f%05d.png -c:v libx264 -pix_fmt yuv420p -crf 14 -preset slow output_144fps.mp4
+# Or manual Remotion CLI command:
+npx remotion render remotion/index.ts <CompositionId> renders/<CompositionId>.mp4 --gl=angle
 ```
 
 ### Essential Export Parameters
 
-- **Framerate:** 144 FPS (smoothness on ProMotion Apple displays and gaming panels).
-- **Pixel Format:** `yuv420p` (100% universal compatibility across Twitter/X, YouTube, TikTok, and QuickTime).
-- **CRF (Constant Rate Factor):** `14` (visually lossless delivery).
+- **Framerate:** 60 FPS standard (or 120 FPS for high-refresh devices).
+- **Pixel Format & Codec:** H.264 `yuv420p` (100% universal compatibility across mobile players, web, Twitter/X, and YouTube).
+- **GPU Backend:** `--gl=angle` for native Windows hardware rendering acceleration.

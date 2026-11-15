@@ -3,6 +3,7 @@ import {
   AbsoluteFill,
   Easing,
   interpolate,
+  Sequence,
   useCurrentFrame,
   useVideoConfig,
 } from 'remotion';
@@ -10,8 +11,7 @@ import { ThreeLiquidOrb } from './ThreeLiquidOrb';
 import { GlassCapture } from './GlassCapture';
 import { GlassBackdrop } from './GlassBackdrop';
 
-// Cards are vertically centred at 540; half-height covers both cards' content boxes.
-const CARD_HALF_H = 185;
+// Cards are vertically centred and size to their own content; no fixed height.
 
 
 /**
@@ -23,6 +23,14 @@ export type LiquidGlassProps = {
   accentPurple?: string;
   backgroundColor?: string;
   showCards?: boolean;
+  // Per-layer toggles (Modular Layer Decoupling Law).
+  showOrb?: boolean;
+  showFaceId?: boolean;
+  showText?: boolean;
+  showIsland?: boolean;
+  // Content offsets so text/cards can be repositioned without touching the animation.
+  textOffset?: { x?: number; y?: number };
+  islandOffset?: { x?: number; y?: number };
 };
 
 export const LiquidGlass: React.FC<LiquidGlassProps> = ({
@@ -30,6 +38,12 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
   accentPurple = '#BF5AF2',
   backgroundColor = '#020305',
   showCards = true,
+  showOrb = true,
+  showFaceId: showFaceIdLayer = true,
+  showText = true,
+  showIsland = true,
+  textOffset,
+  islandOffset,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -82,6 +96,7 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
       extrapolateRight: 'clamp',
       easing: easeElastic,
     });
+    // orb + rings scale
     ringsScale = interpolate(frame, [sec(1.30), sec(2.70)], [0.001, 1.0], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
@@ -135,7 +150,6 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
   }
 
   // 5. Face ID Biometric Spatial Lock (Scene 4: 10.30s - 13.50s)
-  const showFaceId = frame >= sec(10.30) && frame < sec(13.50);
   const faceIdP = interpolate(frame, [sec(10.30), sec(10.80)], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
@@ -197,6 +211,8 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
           overflow: 'hidden',
         }}
       >
+        {/* Layer 1 — Aura & Liquid Orb (background composite) */}
+        {showOrb && <Sequence name="1 · Aura & Orb" from={0} durationInFrames={Infinity} layout="none">
         {/* Spatial Ambient Aura */}
         <div
           style={{
@@ -258,8 +274,13 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
           </div>
         )}
 
-        {/* Face ID Biometric Spatial Ring (Scene 4) */}
-        {showFaceId && (
+        </Sequence>
+        }
+
+        {/* Layer 2 — Face ID Biometric Ring */}
+        {showFaceIdLayer && <Sequence name="2 · Face ID" from={0} durationInFrames={Infinity} layout="none">
+        {/* Face ID Biometric Spatial Glyph (Scene 4) — matches .face-id-ring in the HTML */}
+        {frame >= sec(10.30) && frame < sec(13.50) && (
           <div
             style={{
               position: 'absolute',
@@ -267,208 +288,192 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
               top: '50%',
               width: 260,
               height: 260,
+              marginLeft: -130,
+              marginTop: -130,
               borderRadius: 48,
               border: '2px dashed rgba(100, 210, 255, 0.5)',
               boxShadow: '0 0 40px rgba(100, 210, 255, 0.25)',
-              transform: `translate(-50%, -50%) scale(${faceIdP})`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              zIndex: 10,
+              opacity: faceIdP,
+              transform: `scale(${0.6 + faceIdP * 0.4})`,
+              zIndex: 30,
               pointerEvents: 'none',
             }}
           >
-            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#64D2FF" strokeWidth="1.5">
-              <path d="M7 3H5a2 2 0 0 0-2 2v2M17 3h2a2 2 0 0 1 2 2v2M7 21H5a2 2 0 0 1-2-2v-2M17 21h2a2 2 0 0 0 2-2v-2" />
-              <circle cx="9" cy="9" r="1.5" fill="#64D2FF" />
-              <circle cx="15" cy="9" r="1.5" fill="#64D2FF" />
-              <path d="M9 15c1 1 3 1 4 0" strokeLinecap="round" />
+            <svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#64D2FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3M9 9h.01M15 9h.01M10 14a3.5 3.5 0 0 0 4 0" />
             </svg>
           </div>
         )}
+        </Sequence>
+        }
 
-        {/* Glass capture: a full-stage snapshot of everything painted so far (background, aura,
-            orb). Each card crops + blurs its own region out of this — real glass, in sync. */}
+        {/* Layer 3 — Glass Cards */}
+        {showCards && <Sequence name="3 · Glass Cards" from={0} durationInFrames={Infinity} layout="none">
         <GlassCapture
           frame={frame}
           onReady={setGlassSource}
           siri={{ opacity: siriOpacity, scale: siriScale, rotation: ((frame * 1.5) % 360) * (Math.PI / 180) }}
         />
 
-        {/* Left Spatial Glass Card (exact .spatial-card-left: x-slide only, no scale) */}
-        {showCards && (
-          <div
-            style={{
-              position: 'absolute',
-              left: 80,
-              top: '50%',
-              width: 380,
-              padding: 28,
-              boxSizing: 'border-box',
-              // Glass fill comes from <GlassBackdrop>; this is only the frost veiling it.
-              background: 'rgba(12, 16, 26, 0.34)',
-              border: '1px solid rgba(255, 255, 255, 0.18)',
-              borderRadius: 28,
-              boxShadow: '0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.25)',
-              zIndex: 20,
-              opacity: cardLeftP,
-              transform: `translateY(-50%) translateX(${interpolate(cardLeftP, [0, 1], [-60, 0])}px)`,
-              overflow: 'hidden',
-            }}
-          >
-            {/* Real glass: blurred stage snapshot cropped to this card, keyed to the frame. */}
-            <GlassBackdrop
-              key={`left-${frame}-${glassVersion}`}
-              rect={{ x: 80, y: 540 - CARD_HALF_H, w: 380, h: CARD_HALF_H * 2 }}
-              blur={26}
-              sourceCanvas={getGlass}
-            />
-            {/* Content layer sits above the glass fill. */}
-            <div style={{ position: 'relative', zIndex: 1 }}>
+        {/* Left Card — Spatial Audio Depth */}
+        <div
+          style={{
+            position: 'absolute',
+            left: 80,
+            top: '50%',
+            translate: '0 -50%',
+            width: 380,
+            borderRadius: 28,
+            background: 'rgba(12, 16, 26, 0.34)',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
+            boxSizing: 'border-box',
+            padding: 26,
+            overflow: 'hidden',
+            opacity: cardLeftP,
+            transform: `translateX(${(1 - cardLeftP) * -60}px)`,
+            zIndex: 6,
+          }}
+        >
+          <GlassBackdrop key={`left-${frame}-${glassVersion}`} rect={{ x: 80, y: 0, w: 380, h: 0 }} blur={26} sourceCanvas={getGlass} />
+          <div style={{ position: 'relative', zIndex: 1 }}>
             <div
               style={{
                 width: 44,
                 height: 44,
                 borderRadius: 12,
-                background: 'rgba(10, 132, 255, 0.18)',
-                border: '1px solid rgba(10, 132, 255, 0.35)',
+                background: 'rgba(10, 132, 255, 0.16)',
+                border: '1px solid rgba(10, 132, 255, 0.4)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#0A84FF',
-                marginBottom: 16,
               }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={primaryColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
                 <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
               </svg>
             </div>
-            <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 6 }}>Spatial Audio Depth</div>
-            <div style={{ fontSize: 13, fontWeight: 500, color: '#8E8E93', marginBottom: 22 }}>Head-tracking acoustic wave field</div>
 
-            {/* Label row FIRST, then bar (exact original order) */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 600, color: '#8E8E93', marginBottom: 6 }}>
+            <div style={{ marginTop: 18, fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em' }}>Spatial Audio Depth</div>
+            <div style={{ marginTop: 6, fontSize: 12, fontWeight: 500, color: '#8E8E93' }}>Head-tracking acoustic wave field</div>
+
+            <div style={{ marginTop: 26, display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 600, color: '#8E8E93' }}>
               <span>Resonance Level</span>
               <span style={{ color: '#FFF' }}>{Math.round(resonanceP)}%</span>
             </div>
-            <div style={{ width: '100%', height: 8, background: 'rgba(255,255,255,0.08)', borderRadius: 9999, overflow: 'hidden' }}>
+            <div style={{ marginTop: 8, height: 6, borderRadius: 9999, background: 'rgba(255,255,255,0.12)', overflow: 'hidden' }}>
               <div
                 style={{
                   width: `${resonanceP}%`,
                   height: '100%',
-                  background: 'linear-gradient(90deg, #0A84FF, #64D2FF)',
                   borderRadius: 9999,
+                  background: `linear-gradient(90deg, ${primaryColor}, ${accentPurple})`,
                 }}
               />
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#64D2FF', fontWeight: 600, marginTop: 14 }}>
-              <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#64D2FF' }} />
+            <div style={{ marginTop: 22, display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, fontWeight: 600, color: '#64D2FF' }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#64D2FF', boxShadow: '0 0 8px #64D2FF' }} />
               Dynamic Island Link: Active
             </div>
+          </div>
+        </div>
+
+        {/* Right Card — Apple Intelligence */}
+        <div
+          style={{
+            position: 'absolute',
+            left: 1920 - 80 - 380,
+            top: '50%',
+            translate: '0 -50%',
+            width: 380,
+            borderRadius: 28,
+            background: 'rgba(12, 16, 26, 0.34)',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
+            boxSizing: 'border-box',
+            padding: 26,
+            overflow: 'hidden',
+            opacity: cardRightP,
+            transform: `translateX(${(1 - cardRightP) * 60}px)`,
+            zIndex: 6,
+          }}
+        >
+          <GlassBackdrop key={`right-${frame}-${glassVersion}`} rect={{ x: 1920 - 80 - 380, y: 0, w: 380, h: 0 }} blur={26} sourceCanvas={getGlass} />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: '-0.02em' }}>Apple Intelligence</div>
+            <div style={{ marginTop: 6, fontSize: 12, fontWeight: 500, color: '#8E8E93' }}>On-Device Neural Engine v18</div>
+
+            <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {[
+                ['Refractive Transmission', transVal, '#FFF'],
+                ['Chromatic Dispersion', dispVal, '#FFF'],
+                ['Spatial Gyro Tensor', gyroVal, '#FFF'],
+                ['Haptic Core Clock', hapticVal, '#30D158'],
+              ].map(([label, val, color]) => (
+                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, fontWeight: 500 }}>
+                  <span style={{ color: '#8E8E93' }}>{label}</span>
+                  <span style={{ color, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{val}</span>
+                </div>
+              ))}
             </div>
           </div>
-        )}
+        </div>
+        </Sequence>
+        }
 
-        {/* Right Spatial Glass Card (Apple Intelligence) */}
-        {showCards && (
-          <div
-            style={{
-              position: 'absolute',
-              right: 80,
-              top: '50%',
-              width: 380,
-              padding: 28,
-              boxSizing: 'border-box',
-              // Same frost as the left card, over the same stage snapshot.
-              background: 'rgba(12, 16, 26, 0.34)',
-              border: '1px solid rgba(255, 255, 255, 0.18)',
-              borderRadius: 28,
-              boxShadow: '0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.25)',
-              zIndex: 20,
-              opacity: cardRightP,
-              transform: `translateY(-50%) translateX(${interpolate(cardRightP, [0, 1], [60, 0])}px)`,
-              overflow: 'hidden',
-            }}
-          >
-            <GlassBackdrop
-              key={`right-${frame}-${glassVersion}`}
-              rect={{ x: 1920 - 80 - 380, y: 540 - CARD_HALF_H, w: 380, h: CARD_HALF_H * 2 }}
-              blur={26}
-              sourceCanvas={getGlass}
-            />
-            <div style={{ position: 'relative', zIndex: 1 }}>
-            <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>Apple Intelligence</div>
-            <div style={{ fontSize: 13, fontWeight: 500, color: '#8E8E93', marginBottom: 16 }}>On-Device Neural Engine v18</div>
+        {/* Layer 4 — Typography */}
+        {showText && <Sequence name="4 · Typography" from={0} durationInFrames={Infinity} layout="none">
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 180,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center',
+            opacity: textOpacity,
+            translate: `${textOffset?.x ?? 0}px ${(textOffset?.y ?? 0) + textShift}px`,
+            zIndex: 7,
+            pointerEvents: 'none',
+          }}
+        >
+          <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.24em', color: primaryColor }}>{heroEyebrow}</div>
+          <div style={{ marginTop: 14, fontSize: 64, fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.05 }}>{heroTitle}</div>
+          <div style={{ marginTop: 14, fontSize: 18, fontWeight: 500, color: '#8E8E93' }}>{heroDesc}</div>
+        </div>
+        </Sequence>
+        }
 
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: '#8E8E93' }}>Refractive Transmission</span>
-                <span style={{ fontSize: 14, fontWeight: 700, color: '#fff', fontFamily: "'JetBrains Mono', monospace" }}>{transVal}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: '#8E8E93' }}>Chromatic Dispersion</span>
-                <span style={{ fontSize: 14, fontWeight: 700, color: '#fff', fontFamily: "'JetBrains Mono', monospace" }}>{dispVal}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: '#8E8E93' }}>Spatial Gyro Tensor</span>
-                <span style={{ fontSize: 14, fontWeight: 700, color: '#fff', fontFamily: "'JetBrains Mono', monospace" }}>{gyroVal}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0' }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: '#8E8E93' }}>Haptic Core Clock</span>
-                <span style={{ fontSize: 14, fontWeight: 700, color: '#30D158', fontFamily: "'JetBrains Mono', monospace" }}>{hapticVal}</span>
-              </div>
-            </div>
-            </div>
-          </div>
-        )}
-
-        {/* Center Stage Typography */}
+        {/* Layer 5 — Dynamic Island */}
+        {showIsland && <Sequence name="5 · Dynamic Island" from={0} durationInFrames={Infinity} layout="none">
         <div
           style={{
             position: 'absolute',
             left: '50%',
-            bottom: 100,
-            transform: 'translateX(-50%)',
-            textAlign: 'center',
-            zIndex: 25,
-            width: 1200,
-            opacity: textOpacity,
-            transform: `translateX(-50%) translateY(${textShift}px)`,
+            top: 60,
+            width: islandW,
+            height: islandH,
+            marginLeft: -islandW / 2,
+            borderRadius: islandRadius,
+            background: '#000',
+            border: '1px solid rgba(255,255,255,0.08)',
+            boxSizing: 'border-box',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            padding: showExpandedIsland ? 14 : '0 20px',
+            translate: `${islandOffset?.x ?? 0}px ${islandOffset?.y ?? 0}px`,
+            zIndex: 10,
           }}
         >
-          <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.28em', color: primaryColor, textTransform: 'uppercase', marginBottom: 14 }}>
-            {heroEyebrow}
-          </div>
-          <h1 style={{ fontSize: 64, fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.1, color: '#fff', textShadow: '0 4px 30px rgba(0,0,0,0.5)', minHeight: 80, margin: '0 0 10px 0' }}>
-            {heroTitle}
-          </h1>
-          <p style={{ fontSize: 17, fontWeight: 500, color: '#8E8E93', margin: 0 }}>
-            {heroDesc}
-          </p>
-        </div>
-
-        {/* Top Dynamic Island */}
-        <div style={{ position: 'absolute', top: 44, left: '50%', transform: 'translateX(-50%)', zIndex: 40 }}>
-          <div
-            style={{
-              position: 'relative',
-              width: islandW,
-              height: islandH,
-              background: '#000',
-              borderRadius: islandRadius,
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '0 20px',
-              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.04)',
-              overflow: 'hidden',
-              boxSizing: 'border-box',
-            }}
-          >
-            {/* Compact View: Single-Row 1 Baris Tepat */}
+          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Compact Spatial Fluid View */}
             {!showExpandedIsland && (
               <div
                 style={{
@@ -520,6 +525,8 @@ export const LiquidGlass: React.FC<LiquidGlassProps> = ({
             )}
           </div>
         </div>
+        </Sequence>
+        }
       </div>
     </AbsoluteFill>
   );

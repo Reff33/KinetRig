@@ -25,11 +25,20 @@ export const GlassBackdrop: React.FC<{
     const source = sourceCanvas();
     if (!target || !source || source.width === 0) return;
 
+    // The card sizes itself to its content, so measure it rather than trusting rect.h.
+    // offsetHeight is the border-box height the card actually renders at.
+    const host = target.parentElement;
+    const w = Math.round(rect.w);
+    const h = Math.round(rect.h > 0 ? rect.h : host?.offsetHeight ?? 0);
+    const x = Math.round(rect.x);
+    const y = Math.round(rect.y > 0 ? rect.y : host ? host.getBoundingClientRect().top : 0);
+    if (h <= 0) return;
+
     const ctx = target.getContext('2d');
     if (!ctx) return;
 
-    target.width = Math.max(1, Math.round(rect.w));
-    target.height = Math.max(1, Math.round(rect.h));
+    target.width = Math.max(1, w);
+    target.height = Math.max(1, h);
 
     // Blur the whole stage once, then crop the card region out of the blurred result.
     const scratch = document.createElement('canvas');
@@ -43,7 +52,7 @@ export const GlassBackdrop: React.FC<{
 
     // Crop the card's stage rect out of the blurred snapshot. The <canvas> itself is laid out
     // inside the card, so it starts at 0,0 — only the crop is in stage coordinates.
-    ctx.drawImage(scratch, rect.x, rect.y, rect.w, rect.h, 0, 0, rect.w, rect.h);
+    ctx.drawImage(scratch, x, y, w, h, 0, 0, w, h);
   }, [rect.x, rect.y, rect.w, rect.h, blur, sourceCanvas]);
 
   return (

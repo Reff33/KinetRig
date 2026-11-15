@@ -94,7 +94,17 @@ export const GlassCapture: React.FC<{
       ref={ref}
       width={1920}
       height={1080}
-      style={{ position: 'absolute', inset: 0, opacity: 0, pointerEvents: 'none', zIndex: 7 }}
+      style={{
+        position: 'absolute',
+        inset: 0,
+        // opacity:0 keeps the bitmap out of the frame while the element keeps a real layout box,
+        // so getContext('2d') still works. Off-screen positioning was leaving a stray top-left
+        // compositing artifact in headless Chrome.
+        opacity: 0,
+        top: 0,
+        pointerEvents: 'none',
+        zIndex: 7,
+      }}
     />
   );
 };
