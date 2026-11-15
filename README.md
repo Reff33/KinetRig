@@ -62,18 +62,34 @@ Templates live inside `templates/remotion/`:
 | ⚡ **Glitch Terminal** | `templates/remotion/GlitchTerminal.tsx` | Exact 6.0s cybernetic terminal with memory hex stream, live memory bar, decrypting text scramble with RGB split glitch chromatic aberration. |
 | 📊 **SaaS Macro** | `templates/remotion/SaasMacro.tsx` | Exact 7.0s 3D browser mockup perspective with dynamic SVG metric chart, animated drawing line, and sidebar rack focus blur swap. |
 | 🔲 **Bento Grid** | `templates/remotion/BentoGrid.tsx` | Exact 6.5s 3x2 glassmorphic modular bento card layout with staggered spring pop entries and animated progress telemetry. |
-| 💬 **Chat Dialogue** | `templates/remotion/ChatDialogue.tsx` | Diegetic AI chat device with 3D perspective tilt, human keystroke typing cadence, pulsing typing dots, and reaction badges. |
+| 💬 **Chat Dialogue** | `templates/remotion/ChatDialogue.tsx` | 4.0s diegetic AI chat device with 3D perspective tilt, human keystroke typing cadence, pulsing typing dots, and reaction badges. |
 | 📈 **Data Metrics** | `templates/remotion/DataMetrics.tsx` | Exact 8.0s KPI dashboard with 3 popup metric cards, animated number counter, and 6 elastic animated SVG bar charts. |
 | 🔥 **Reel Hook** | `templates/remotion/ReelHook.tsx` | Exact 6.0s viral short-form hook with chromatic mood shift (Red -> Violet), radial bloom wave, and floating sticker tags. |
 | 🛍️ **Product Showcase** | `templates/remotion/ProductShowcase.tsx` | Exact 7.0s 3D e-commerce card with specular shimmer sweep, animated spec grid, and bouncing CTA button. |
 | 🌊 **Action Flow** | `templates/remotion/ActionFlow.tsx` | Exact 8.0s continuous 3840px world with persistent hero orb, squash & stretch, 3D horizon flight banking, and shockwaves. |
 | 📑 **Editorial Dossier** | `templates/remotion/EditorialDossier.tsx` | Exact 9.0s forensic investigative desk with satellite recon, cyan laser sweep, red stamp slam, and black redaction marker wipe. |
 | 📐 **Studio Catalog** | `templates/remotion/StudioCatalog.tsx` | Exact 11.0s Swiss architectural white paper catalog, camera gliding rig between exhibits, specimen fan-out stack, and rubber stamp slam. |
-| 📰 **Paper Collage** | `templates/remotion/PaperCollage.tsx` | Exact 7.5s stop-motion tactile paper scrapbook, Polaroid drop, Scotch tape snaps, torn newspaper scrap, and physical paper rip tear wipe. |
-| 🎭 **Proscenium Stage** | `templates/remotion/ProsceniumStage.tsx` | Exact 8.0s velvet proscenium curtains parting open, theatrical depth planes, and animated vector character puppet with organic walk cycle. |
-| 🔮 **Liquid Glass** | `templates/remotion/LiquidGlass.tsx` | Exact 6.0s Apple iOS spatial design, Dynamic Island pill expansion, rotating multi-color Siri fluid glow aura, and VisionOS glass orb. |
+| 📰 **Paper Collage** | `templates/remotion/PaperCollage.tsx` | Exact 9.0s stop-motion tactile paper scrapbook, Polaroid drop, Scotch tape snaps, torn newspaper scrap, and physical paper rip tear wipe. |
+| 🎭 **Proscenium Stage** | `templates/remotion/ProsceniumStage.tsx` | Exact 12.0s velvet proscenium curtains parting open, theatrical depth planes, and animated vector character puppet with organic walk cycle. |
+| 🔮 **Liquid Glass** | `templates/remotion/LiquidGlass.tsx` | Exact 15.0s Apple iOS spatial design, Dynamic Island pill expansion, rotating multi-color Siri fluid glow aura, Face ID glyph, and VisionOS glass orb with real sampled backdrop on content-sized cards. |
 
 To add or register custom compositions, add entries to `remotion/Root.tsx`.
+
+### Layered Templates
+
+`LiquidGlass` follows the Modular Layer Decoupling Law: each visual layer is its own named `Sequence`, so it shows as a separate bar in the Studio timeline and can be toggled or repositioned by props.
+
+```tsx
+<LiquidGlass
+  showOrb={false}          // drop the aura + Three.js orb
+  showCards={false}        // drop the glass cards
+  showFaceId={false}
+  showText={false}
+  showIsland={false}
+  textOffset={{ y: -80 }}  // nudge copy without touching the animation
+  islandOffset={{ x: 40 }}
+/>
+```
 
 ---
 
@@ -109,7 +125,10 @@ KinetRig/
 │   ├── StudioCatalog.tsx            Swiss Minimalist Architectural Catalog
 │   ├── PaperCollage.tsx             Tactile Stop-Motion Paper Scrapbook
 │   ├── ProsceniumStage.tsx          Theatrical Velvet Curtain Puppet Stage
-│   └── LiquidGlass.tsx              iOS VisionOS Liquid Glass & Dynamic Island
+│   ├── LiquidGlass.tsx              iOS VisionOS Liquid Glass & Dynamic Island
+│   ├── ThreeLiquidOrb.tsx           Three.js physical transmission orb for LiquidGlass
+│   ├── GlassCapture.tsx             Stage snapshot taken each frame for glass sampling
+│   └── GlassBackdrop.tsx            Crop + blur of the sampled stage behind a card
 ├── scripts/
 │   ├── preview-remotion.mjs         CLI to launch Remotion Studio in browser
 │   └── render-remotion.mjs          CLI renderer with automatic player launch
